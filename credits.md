@@ -1,0 +1,3 @@
+- [Creating a device driver](http://web.archive.org/web/20111204011222/http://www.rcnp.osaka-u.ac.jp/unix/DOCUMENTATION/HTML/AA-PUBVD-TE_html/drivertut5.html#DesSimple) Ideas sobre como crear drivers de dispositivos.
+- [Connie Canelon](https://twitter.com/comi_canelon) Diseño logo e ideas.
+- 
