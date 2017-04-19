@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Crea un dispositivo</title>
+  <link href="stylesheets/main.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Crea tu dispositivo!</h1>
+    <form>
+      <div>
+        <label>
+          Nombre:
+        </label>
+        <input placeholder="Ej:Teclado" id="nombre_c"></input>
+      </div>
+      <div>
+        <label>Marca:</label>
+        <input placeholder="Ej:Genius" id="marca_c"></input>
+      </div>
+      <div>
+        <label>¿Bloquea entrada y salida?</label>
+        <input type="checkbox" id="blockES_c"></input>
+      </div>
+      <div>
+        <label>¿Soporta byte stream access?</label>
+        <input type="checkbox" id="streamAccess_c"></input>
+      </div>
+      <div>
+        <label>Descripcion de uso:
+    </label>
+        <textarea type="text" id="descripcion_c"></textarea>
+      </div>
+      <button class="button" id="generar">Generar Dispositivo y Controlador</button>
+    </form>
+  </div>
+  <script>
+  const ipc = require('electron').ipcRenderer;
+  const genData = () => {
+    return {
+      nombre: document.getElementById('nombre_c').value,
+      marca: document.getElementById('marca_c').value,
+      bloqueaES: document.getElementById('blockES_c').checked,
+      accesoByteStream: document.getElementById('streamAccess_c').checked,
+      descripcion: document.getElementById('descripcion_c').value,
+    }
+  };
+  const checkObject = (o) => {
+    if(o.nombre == "") return false;
+    if(o.marca == "") return false;
+    if(o.descripcion == "") return false;
+    return true;
+  };
+  document.getElementById('generar').addEventListener("click", (e) => {
+    e.preventDefault();
+    let data = genData();
+    if (!checkObject(data)) {
+      ipc.send('open-error-dialog', "Debes ingresar: Nombre, Marca, Descripcion");
+    } else {
+      ipc.send('genera-dispositivo', data);
+    }
+  });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Conecta un dispositivo</title>
+  <link href="stylesheets/main.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Conecta un dispositivo</h1>
+    <form>
+      <div>
+        <label>Dispositivo:</label>
+        <input type="file" id="dispositivo"></input>
+      </div>
+      <div>
+        <label>Driver:</label>
+        <input type="file" id="driver"></input>
+      </div>
+      <button class="button" id="conectar">Conectar</button>
+    </form>
+  </div>
+  <script>
+  const ipc = require('electron').ipcRenderer;
+  const getFilePathFromInput = (id) => {
+    let fileInput = document.getElementById(id);
+    let file = fileInput.files[0];
+    return file.path;
+  }
+  document.getElementById('conectar').addEventListener("click", (e) => {
+    e.preventDefault();
+    let devicePath = getFilePathFromInput('dispositivo');
+    let driverPath = getFilePathFromInput('driver');
+    ipc.send('conectar-dispositivo', { device: devicePath, driver: driverPath})
+  });
+  </script>
+</body>
+
+</html>
