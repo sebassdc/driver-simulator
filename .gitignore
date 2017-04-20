@@ -9,7 +9,7 @@ Thumbs.db
 /app/background.js
 /app/env.json
 /app/**/*.map
-
+.sass-cache
 /dist
 
 /coverage
